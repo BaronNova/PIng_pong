@@ -25,7 +25,7 @@ class GameSprite(sprite.Sprite):
         self.rect.y = player_y
     def reset(self):
         window.blit(self.image, (self.rect.x, self.rect.y))
-        
+
 class Player(GameSprite):
     def update_l(self):
         keys = key.get_pressed()
@@ -44,7 +44,8 @@ player = Player('platform.png', windx-60, windy/2, 10)
 player2 = Player('platform.png', windx-690, windy/2, 10)
 balls = Player('ball.png', windx/2, windy/2, 10)
 
-
+speedx = 5
+speedy = 5
 
 while playing:
     for e in event.get():
@@ -56,6 +57,10 @@ while playing:
         player.update_l()
         player2.update_r()
 
+        balls.rect.y += speedy
+        balls.rect.x += speedx
+        if balls.rect.y > windy - 50 or balls.rect.x < 0:
+            speedy *= -1
 
         balls.reset()
         balls.reset()
