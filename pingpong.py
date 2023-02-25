@@ -5,6 +5,10 @@ clock = time.Clock()
 background = (100, 100, 100)
 FPS = 60
 
+font.init()
+font1 = font.Font(None, 35)
+lose1 = font1.render('PLAYER 1 LOSE!', True, (180, 0, 0))
+lose2 = font1.render('PLAYER 2 LOSE!', True, (180, 0, 0))
 
 windx = 700
 windy = 500
@@ -46,6 +50,9 @@ balls = Player('ball.png', windx/2, windy/2, 10)
 
 speedx = 5
 speedy = 5
+point1 = 0
+point2 = 0
+
 
 while playing:
     for e in event.get():
@@ -57,18 +64,29 @@ while playing:
         player.update_l()
         player2.update_r()
 
-        '''crash = sprite.spritecollide(player, monsters, True)
-        for i in crash:
-            health -= 1'''
-        
-
         balls.rect.y += speedy
         balls.rect.x += speedx
         if balls.rect.y > windy - 50 or balls.rect.y < 0:
             speedy *= -1
         if sprite.collide_rect(player2, balls) or sprite.collide_rect(player, balls):
-            speedy *= -1
             speedx *= -1
+        
+        if balls.rect.x >= windx:
+            point1 +=1
+            window.blit(lose2, (windx/2, windy/2))
+            finsh = True
+            '''balls.rect.x = windx/2
+            balls.rect.y = windy/2'''
+
+
+        if balls.rect.x <= 0:
+            point2 +=1
+            window.blit(lose1, (windx/2, windy/2))
+            finsh = True
+            '''balls.rect.x = windx/2
+            balls.rect.y = windy/2'''
+
+
 
         balls.reset()
         balls.reset()
