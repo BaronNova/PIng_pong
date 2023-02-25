@@ -60,6 +60,8 @@ while playing:
             playing = False
 
     if not finsh:
+        score = font1.render(f'{point1}', True, (255, 255, 255))
+        score2 = font1.render(f'{point2}', True, (255, 255, 255))
         window.fill(background)
         player.update_l()
         player2.update_r()
@@ -73,21 +75,18 @@ while playing:
         
         if balls.rect.x >= windx:
             point1 +=1
-            window.blit(lose2, (windx/2, windy/2))
-            finsh = True
-            '''balls.rect.x = windx/2
-            balls.rect.y = windy/2'''
+            balls.rect.x = windx/2
+            balls.rect.y = windy/2
 
 
         if balls.rect.x <= 0:
             point2 +=1
-            window.blit(lose1, (windx/2, windy/2))
-            finsh = True
-            '''balls.rect.x = windx/2
-            balls.rect.y = windy/2'''
+            balls.rect.x = windx/2
+            balls.rect.y = windy/2
 
 
-
+        window.blit(score, (350, 0))
+        window.blit(score2, (370, 0))
         balls.reset()
         balls.reset()
         player.reset()
