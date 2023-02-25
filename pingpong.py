@@ -29,15 +29,15 @@ class GameSprite(sprite.Sprite):
 class Player(GameSprite):
     def update_l(self):
         keys = key.get_pressed()
-        if keys[K_w] and self.rect.y > 5:
-            self.rect.y -= self.speed
-        if keys[K_s] and self.rect.y < 420:
-            self.rect.y += self.speed
-    def update_r(self):
-        keys = key.get_pressed()
         if keys[K_UP] and self.rect.y > 5:
             self.rect.y -= self.speed
         if keys[K_DOWN] and self.rect.y < 420:
+            self.rect.y += self.speed
+    def update_r(self):
+        keys = key.get_pressed()
+        if keys[K_w] and self.rect.y > 5:
+            self.rect.y -= self.speed
+        if keys[K_s] and self.rect.y < 420:
             self.rect.y += self.speed
 
 player = Player('platform.png', windx-60, windy/2, 10)
@@ -57,10 +57,18 @@ while playing:
         player.update_l()
         player2.update_r()
 
+        '''crash = sprite.spritecollide(player, monsters, True)
+        for i in crash:
+            health -= 1'''
+        
+
         balls.rect.y += speedy
         balls.rect.x += speedx
-        if balls.rect.y > windy - 50 or balls.rect.x < 0:
+        if balls.rect.y > windy - 50 or balls.rect.y < 0:
             speedy *= -1
+        if sprite.collide_rect(player2, balls) or sprite.collide_rect(player, balls):
+            speedy *= -1
+            speedx *= -1
 
         balls.reset()
         balls.reset()
