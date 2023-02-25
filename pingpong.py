@@ -78,11 +78,17 @@ while playing:
             balls.rect.x = windx/2
             balls.rect.y = windy/2
 
-
         if balls.rect.x <= 0:
             point2 +=1
             balls.rect.x = windx/2
             balls.rect.y = windy/2
+
+        if point1 == 3:
+            window.blit(lose1, (windy/2, windx/2))
+            finsh = True
+        if point2 == 3:
+            window.blit(lose2, (windy/2, windx/2))
+            finsh = True
 
 
         window.blit(score, (350, 0))
